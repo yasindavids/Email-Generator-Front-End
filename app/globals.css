@@ -1,26 +1,311 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap');
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.home {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Full viewport height */
+  padding-bottom: 60px; /* Ensure there's space at the bottom if needed */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(to bottom right, #021526, #031f38, #03346E, #6EACDA); 
+  font-family: 'Roboto', sans-serif; /* You can customize the font family here */
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  
+}
+
+h1 {
+  padding-top: 80px;
+  font-family: 'Special Gothic Expanded One', sans-serif;
+  font-weight: normal; /* If you want to control the weight */
+  background: linear-gradient(to right, #ffffff, #7c7a7a); /* Gradient colors */
+  
+  /* Ensuring background clip works across browsers */
+  -webkit-background-clip: text;  /* For WebKit browsers (Chrome, Safari) */
+  background-clip: text; /* Standard property (might not be supported in older browsers) */
+  
+  -webkit-text-fill-color: transparent;
+
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.101), 0 0 20px rgba(255, 255, 255, 0.3);
+  font-size: 48px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* ---------------------------------------------------------------------------*/
+
+/* Search bar styles */
+.search-bar {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  background-color: #ffffff; /* White background */
+  border: 1px solid #ccc;    /* Light border to define the input area */
+  border-radius: 8px;        /* Optional: rounded corners for the input box */
+  padding: 10px 15px;        /* Add some padding for a comfortable size */
+  font-size: 16px;           /* Text size */
+  color: #333;               /* Text color (dark gray for good contrast) */
+  width: 56%;    
+}
+
+.search-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px; /* This creates the spacing between input and dropdown */
+  flex-wrap: wrap; /* Makes it responsive */
+}
+
+/* ---------------------------------------------------------------------------*/
+
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+select {
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.cards {
+  margin-top: 20px;
+}
+
+.card {
+  background-color: rgba(248, 249, 250, 0.3);  /* Semi-transparent background */
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 70%;
+  margin: 0 auto;
+}
+
+/*----------------------- NEW DROPDOWN -------------------------------------------*/
+
+/* From Uiverse.io by 3bdel3ziz-T */ 
+.select {
+  width: fit-content;
+  cursor: pointer;
+  position: relative;
+  transition: 300ms;
+  color: white;
+  overflow: hidden;
+}
+
+.selected {
+  background-color: #2a2f3b;
+  padding: 5px;
+  margin-bottom: 3px;
+  border-radius: 5px;
+  position: relative;
+  z-index: 100000;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.arrow {
+  position: relative;
+  right: 0px;
+  height: 10px;
+  transform: rotate(-90deg);
+  width: 25px;
+  fill: white;
+  z-index: 100000;
+  transition: 300ms;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #2a2f3b;
+  position: relative;
+  top: -100px;
+  opacity: 0;
+  transition: 300ms;
+}
+
+.select:hover > .options {
+  opacity: 1;
+  top: 0;
+}
+
+.select:hover > .selected .arrow {
+  transform: rotate(0deg);
+}
+
+.option {
+  border-radius: 5px;
+  padding: 5px;
+  transition: 300ms;
+  background-color: #2a2f3b;
+  width: 150px;
+  font-size: 15px;
+}
+.option:hover {
+  background-color: #323741;
+}
+
+.options input[type="radio"] {
+  display: none;
+}
+
+.options label {
+  display: inline-block;
+}
+.options label::before {
+  content: attr(data-txt);
+}
+
+.options input[type="radio"]:checked + label {
+  display: none;
+}
+
+.options input[type="radio"]#all:checked + label {
+  display: none;
+}
+
+.select:has(.options input[type="radio"]#all:checked) .selected::before {
+  content: attr(data-default);
+}
+.select:has(.options input[type="radio"]#option-1:checked) .selected::before {
+  content: attr(data-one);
+}
+.select:has(.options input[type="radio"]#option-2:checked) .selected::before {
+  content: attr(data-two);
+}
+.select:has(.options input[type="radio"]#option-3:checked) .selected::before {
+  content: attr(data-three);
+}
+
+
+/*----------------------- OLD DROPDOWN -------------------------------------------*/
+
+.articles-container {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.article {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #ffffff;  /* White background for articles */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.article:hover {
+  background-color: #f1f1f1;
+}
+
+.filter-dropdown {
+  padding: 12px 20px 12px 12px; /* Adjust padding to add space on the right */
+  background-color: rgb(5, 6, 45);
+  transition: 300ms;
+  color: white;
+  border: none; /* Remove default border */
+  position: relative; /* Allows us to position the custom arrow */
+  font-size: 16px;
+}
+
+.filter-dropdown::after {
+  content: '';
+  position: absolute;
+  right: 12px; /* Position the arrow inside the dropdown */
+  top: 50%;
+  transform: translateY(-50%);
+  border-left: 5px solid transparent; /* Creating the triangle */
+  border-right: 5px solid transparent; /* Creating the triangle */
+  border-top: 5px solid white; /* The actual arrow */
+  width: 0;
+  height: 0;
+  z-index: 100;
+  transition: 300ms;
+}
+
+/* ----------------------------------------------------------------------------*/
+
+button {
+  align-items: center;
+  background-image: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb);
+  border: 0;
+  border-radius: 8px;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  box-sizing: border-box;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+/* Active and Hover Styles for Button */
+button:active,
+button:hover {
+  outline: 0;
+}
+
+/* Actual Button (Span) */
+button span {
+  background-color: rgb(5, 6, 45);
+  padding: 8px 16px; 
+  border-radius: 6px;
+  transition: 300ms;
+  display: inline-block;
+}
+
+/* Hover Effect for Span */
+button:hover span {
+  background: none;
+}
+
+/* Button Active State */
+button:active {
+  transform: scale(0.9);
+}
+
+/* Fixing Button to Bottom Center */
+button {
+  position: fixed;
+  bottom: 42px;  /* Adjust the space from the bottom */
+  left: 50%;     /* Center horizontally */
+  transform: translateX(-50%); /* Offset by 50% of the button's width */
+  z-index: 100;  /* Ensure it stays on top */
 }
